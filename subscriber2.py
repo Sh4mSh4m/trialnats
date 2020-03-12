@@ -7,7 +7,7 @@ import concurrent.futures
 
 #logging.basicConfig(level=logging.DEBUG)
 
-def cb2(future):
+async def cb2(future):
     print(future.result())
 
 def task1(data):
@@ -17,11 +17,9 @@ def task1(data):
         sleep(1)
     return f"done-{data}"
 
-async def make_coro(future):
-    try:
-        return await future
-    except asyncio.CancelledError:
-        return await future
+async def add_success_cb(future, callback):
+    result = await future
+    await callback(future) 
 
 async def listening(pool):
     nc = NATS()
@@ -36,7 +34,8 @@ async def listening(pool):
         data = msg.data.decode()
         print(f"Received a message on '{subject} {reply}': {data}")
         future = loop.run_in_executor(pool, task1, data)
-        result = asyncio.create_task(make_coro(future))
+        new_task = add_success_cb(future, cb2)
+        result = asyncio.create_task(new_task)
         print(result)
         #future.add_done_callback(cb2)
     await nc.subscribe("trial", cb=help_request)
