@@ -1,0 +1,17 @@
+1
+The uuid standard library module is a convenient way of creating an “identity” for this listener. If you start up multiple instances, each will have its own identity, and you’ll be able to track what is happening in the logs.
+
+2
+Open a connection to the server.
+
+3
+The channel to subscribe to is an input parameter, captured in args.listen. Encode it into bytes before sending.
+
+4
+By our protocol rules (as discussed in the broker code analysis previously), the first thing to do after connecting is to send the channel name to subscribe to.
+
+5
+This loop does nothing else but wait for data to appear on the socket.
+
+6
+The command-line arguments for this program make it easy to point to a host, a port, and a channel name to listen to.

@@ -25,6 +25,7 @@ async def listening(pool):
     nc = NATS()
     print("Obj done")
     loop = asyncio.get_running_loop()
+    print(f"loop1 is {loop}")
     await nc.connect("localhost:4222", loop=loop)
     print("connected")
 
