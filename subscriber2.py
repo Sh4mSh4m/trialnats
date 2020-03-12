@@ -17,6 +17,12 @@ def task1(data):
         sleep(1)
     return f"done-{data}"
 
+async def make_coro(future):
+    try:
+        return await future
+    except asyncio.CancelledError:
+        return await future
+
 async def listening(pool):
     nc = NATS()
     print("Obj done")
@@ -30,8 +36,9 @@ async def listening(pool):
         data = msg.data.decode()
         print(f"Received a message on '{subject} {reply}': {data}")
         future = loop.run_in_executor(pool, task1, data)
-        print('launched')
-        future.add_done_callback(cb2)
+        result = asyncio.create_task(make_coro(future))
+        print(result)
+        #future.add_done_callback(cb2)
     await nc.subscribe("trial", cb=help_request)
 
 
