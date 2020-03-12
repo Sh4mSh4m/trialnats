@@ -10,8 +10,8 @@ version = "0.10.0"
 nkeys = ["nkeys"]
 
 [metadata]
-content-hash = "5678572e517161a74f6a01fdd91355a7d7848782aa6dce64edf335f983c1625f"
-python-versions = "^3.6.1"
+content-hash = "a7967c630ab5cbe548268d9daa640cbb9d65a61746b9992c9c80f0e6a65d07f3"
+python-versions = "^3.7"
 
 [metadata.files]
 asyncio-nats-client = [

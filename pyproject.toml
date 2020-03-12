@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "nats"
+name = "natsclient2"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["hieu"]
 
 [tool.poetry.dependencies]
-python = "^3.7.1"
+python = "^3.7"
 asyncio-nats-client = "^0.10.0"
 
 [tool.poetry.dev-dependencies]
